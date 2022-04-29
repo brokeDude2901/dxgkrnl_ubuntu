@@ -72,8 +72,8 @@ sudo chmod +x /etc/profile.d/wsl.sh
 - Download and install the .deb package:
 ```bash
 cd ~/
-wget https://github.com/brokeDude2901/dxgkrnl_linux/releases/download/master/linux-headers-5.10.102.1-dxgrknl_5.10.102.1-dxgrknl-10.00.Custom_amd64.deb
-wget https://github.com/brokeDude2901/dxgkrnl_linux/releases/download/master/linux-image-5.10.102.1-dxgrknl_5.10.102.1-dxgrknl-10.00.Custom_amd64.deb
+wget https://github.com/brokeDude2901/dxgkrnl_linux/releases/download/main/linux-headers-5.10.102.1-dxgrknl_5.10.102.1-dxgrknl-10.00.Custom_amd64.deb
+wget https://github.com/brokeDude2901/dxgkrnl_linux/releases/download/main/linux-image-5.10.102.1-dxgrknl_5.10.102.1-dxgrknl-10.00.Custom_amd64.deb
 sudo dpkg -i *.deb
 ```
 - (Alternative) Build and install the kernel (~1 hour):
@@ -82,7 +82,7 @@ cd ~/
 git clone https://github.com/microsoft/WSL2-Linux-Kernel.git
 sudo apt-get install -y build-essential flex bison dwarves libssl-dev libelf-dev kernel-package libncurses5-dev fakeroot wget bzip2
 cd WSL2-Linux-Kernel
-wget https://raw.githubusercontent.com/brokeDude2901/dxgkrnl_linux/master/.config -O=.config
+wget https://raw.githubusercontent.com/brokeDude2901/dxgkrnl_linux/main/.config -O "./.config"
 sudo make-kpkg -j$(nproc) --initrd kernel_image kernel_headers
 cd ..
 sudo dpkg -i *.deb
