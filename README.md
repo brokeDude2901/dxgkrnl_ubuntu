@@ -82,23 +82,17 @@ sudo nano /etc/default/grub
 ```
 ```text
 GRUB_TIMEOUT_STYLE=menu
-GRUB_TIMEOUT=10
+GRUB_TIMEOUT=5
 GRUB_DEFAULT=saved
 GRUB_SAVEDEFAULT=true
 ```
-- (Alternative) Build and install the kernel (~1 hour):
 ```bash
-cd ~/
-git clone https://github.com/microsoft/WSL2-Linux-Kernel.git
-sudo apt-get install -y build-essential flex bison dwarves libssl-dev libelf-dev kernel-package libncurses5-dev fakeroot wget bzip2
-cd WSL2-Linux-Kernel
-wget https://raw.githubusercontent.com/brokeDude2901/dxgkrnl_linux/main/.config -O "./.config"
-sudo make-kpkg -j$(nproc) --initrd kernel_image kernel_headers
-cd ..
-sudo dpkg -i *.deb
+sudo update-grub
 ```
+
 ### 4. Reboot Ubuntu Hyper-V virtual machine:  
 ```bash
 sudo reboot now
 nvidia-smi
 ```
+### 5. Install nvidia-docker:  
