@@ -76,6 +76,13 @@ wget https://github.com/brokeDude2901/dxgkrnl_linux/releases/download/main/linux
 wget https://github.com/brokeDude2901/dxgkrnl_linux/releases/download/main/linux-image-5.10.102.1-dxgrknl_5.10.102.1-dxgrknl-10.00.Custom_amd64.deb
 sudo dpkg -i *.deb
 ```
+- To be able to select dxgkrnl in grub:
+sudo nano /etc/default/grub
+GRUB_TIMEOUT_STYLE=menu
+GRUB_TIMEOUT=10
+GRUB_DEFAULT=saved
+GRUB_SAVEDEFAULT=true
+```
 - (Alternative) Build and install the kernel (~1 hour):
 ```bash
 cd ~/
