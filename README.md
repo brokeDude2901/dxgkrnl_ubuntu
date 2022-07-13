@@ -95,4 +95,10 @@ sudo update-grub
 sudo reboot now
 nvidia-smi
 ```
-### 5. Install nvidia-docker:  
+### 5. Install nvidia-docker: 
+```bash
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+curl -s -L https://nvidia.github.io/nvidia-docker/ubuntu18.04/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+sudo apt-get update
+sudo apt install nvidia-docker2
+```
