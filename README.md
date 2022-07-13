@@ -77,7 +77,10 @@ wget https://github.com/brokeDude2901/dxgkrnl_linux/releases/download/main/linux
 sudo dpkg -i *.deb
 ```
 - To be able to select dxgkrnl in grub:
+```bash
 sudo nano /etc/default/grub
+```
+```text
 GRUB_TIMEOUT_STYLE=menu
 GRUB_TIMEOUT=10
 GRUB_DEFAULT=saved
