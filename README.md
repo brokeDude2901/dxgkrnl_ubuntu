@@ -1,15 +1,12 @@
-# dxgkrnl_linux
+# dxgkrnl_ubuntu
 
 Use Linux on Hyper-V virtual machine with dxgrknl (GPU-P) support.
 
 ### Pros:
-- More control, full Hyper-V virtual machine as your disposal.
+- Full Hyper-V virtual machine as your disposal.
 - Has systemd.
 ### Cons:
 - WSLg stuff is not supported. Use XRDP instead.
-- Takes a lot of space. (Ubuntu 20.04 LTS Desktop 20G vs WSL2 500MB)
-- No official support.
-- Ubuntu 20.04 LTS installation takes long time.
 
 ![image](https://user-images.githubusercontent.com/46110534/164886442-d4977e78-5748-40b3-aab1-e3b25a15866f.png)
 
@@ -72,8 +69,8 @@ sudo chmod +x /etc/profile.d/wsl.sh
 - Download and install the .deb package:
 ```bash
 cd ~/
-wget https://github.com/brokeDude2901/dxgkrnl_linux/releases/download/main/linux-headers-5.10.102.1-dxgrknl_5.10.102.1-dxgrknl-10.00.Custom_amd64.deb
-wget https://github.com/brokeDude2901/dxgkrnl_linux/releases/download/main/linux-image-5.10.102.1-dxgrknl_5.10.102.1-dxgrknl-10.00.Custom_amd64.deb
+wget https://github.com/brokeDude2901/dxgkrnl_ubuntu/releases/download/main/linux-headers-5.10.102.1-dxgrknl_5.10.102.1-dxgrknl-10.00.Custom_amd64.deb
+wget https://github.com/brokeDude2901/dxgkrnl_ubuntu/releases/download/main/linux-image-5.10.102.1-dxgrknl_5.10.102.1-dxgrknl-10.00.Custom_amd64.deb
 sudo dpkg -i *.deb
 ```
 - To be able to select dxgkrnl in grub:
