@@ -1,3 +1,5 @@
+# update: this is outdated, wsl2 now use kernel 5.15
+
 # dxgkrnl_ubuntu
 
 Use Linux on Hyper-V virtual machine with dxgrknl (GPU-P) support.
