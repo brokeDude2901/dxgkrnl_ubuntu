@@ -105,3 +105,4 @@ curl -s -L https://nvidia.github.io/nvidia-docker/ubuntu18.04/nvidia-docker.list
 sudo apt-get update
 sudo apt install nvidia-docker2
 ```
+you might need to copy /usr/lib/nvidia-smi to /usr/bin/nvidia-smi to have nvidia-smi mounted in your container
