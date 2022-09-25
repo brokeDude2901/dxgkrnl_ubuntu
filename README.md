@@ -1,14 +1,18 @@
-# update: this is outdated, wsl2 now use kernel 5.15
+# notice: 
+- this is outdated for Ubuntu 22.04, WSL2 now use kernel 5.15
+# plans: 
+- Provide instruction to build the dxgkrnl kernel (both 5.10 and 5.15)
+- AMD guide
+- Wayland XRDP with GPU acceleration (similar to WSLg)
 
 # dxgkrnl_ubuntu
-
-Use Linux on Hyper-V virtual machine with dxgrknl (GPU-P) support.
+Use Ubuntu on Hyper-V virtual machine with dxgrknl (GPU-P) support.
 
 ### Pros:
 - Full Hyper-V virtual machine as your disposal.
 - Has systemd.
 ### Cons:
-- WSLg stuff is not supported. Use XRDP instead.
+- WSLg stuff is not supported. Use XRDP (without GPU acceleration) instead.
 
 ![image](https://user-images.githubusercontent.com/46110534/164886442-d4977e78-5748-40b3-aab1-e3b25a15866f.png)
 
