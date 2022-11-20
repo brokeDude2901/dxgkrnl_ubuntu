@@ -1,3 +1,7 @@
+<img width="770" alt="image" src="https://user-images.githubusercontent.com/46110534/202920205-2add7533-ac42-43d6-8d16-b083deca51a0.png">
+<img width="770" alt="image" src="https://user-images.githubusercontent.com/46110534/202920235-e84d1811-c770-4b3a-aff2-55581bd2e5a6.png">
+
+
 # dxgkrnl_ubuntu
 Use Ubuntu on Hyper-V virtual machine with dxgrknl kernel (Microsoft GPU-P support).
 
@@ -101,7 +105,12 @@ sudo apt-get update &&
 sudo apt-get install -y curl &&
 curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - &&
 curl -s -L https://nvidia.github.io/nvidia-docker/ubuntu18.04/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list &&
-sudo apt-get update && sudo apt install -y nvidia-docker2 &&
+sudo apt-get update && sudo apt install -y nvidia-docker2
+```
+- Perform a quick docker test see if gpu is working
+```bash
 sudo docker run --rm --gpus all nvcr.io/nvidia/k8s/cuda-sample:nbody nbody -gpu -benchmark && 
 sudo docker run --rm -it -v /usr/lib/wsl/lib/nvidia-smi:/usr/local/bin/nvidia-smi --gpus all nvidia/cuda:11.8.0-base-ubuntu22.04 nvidia-smi
 ```
+<img width="1440" alt="image" src="https://user-images.githubusercontent.com/46110534/202920127-007fe4d9-e20b-4b49-b4cd-c2f95c81f89d.png">
+
