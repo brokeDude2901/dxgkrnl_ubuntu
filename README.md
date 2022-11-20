@@ -3,13 +3,15 @@
 
 
 # dxgkrnl_ubuntu
-Use Ubuntu on Hyper-V virtual machine with dxgrknl kernel (Microsoft GPU-P support).
+Use Ubuntu on Hyper-V VM with Microsoft GPU-P support (dxgrknl kernel).
 
 ### Pros:
-- Full Hyper-V VM with systemd as your disposal
+- Full Hyper-V VM with more features than WSL2 (systemd, snap package, Hyper-V External Network, ...)
 - Can have one real GPU sharable among multiple Hyper-V VMs
 ### Cons:
 - WSLg stuff is not supported, use the new Ubuntu 22.04 Remote Sharing instead
+- Some tricks require to make nvidia Docker works properly
+- Only tested on Ubuntu 20.04 / 22.04
 
 # Instructions
 ### 1. Create a Gen 2 Hyper-V virtual machine, install Ubuntu 20.04 LTS / 22.04 LTS as normal 
@@ -58,7 +60,10 @@ mkdir -p $HOME/temp_folder/lib && mkdir -p $HOME/temp_folder/drivers
 ```powershell
 # get currentdriverfolder from this result
 Get-CimInstance -ClassName Win32_VideoController -Property *
+```
+<img width="1440" alt="image" src="https://user-images.githubusercontent.com/46110534/202920319-d69d9071-bf3b-41e1-957b-4b695b8c0fa7.png">
 
+```powershell
 # define your vmip, vmusername and currentdriverfolder
 $vmip = "192.168.1.106"
 $vmusername = "abcdefg"
@@ -80,7 +85,7 @@ sudo ldconfig &&
 echo "export PATH=$PATH:/usr/lib/wsl/lib" | sudo tee /etc/profile.d/wsl.sh && 
 sudo chmod +x /etc/profile.d/wsl.sh
 ```
-- Repeat this step 3 if you updated your current Windows Host Driver
+- Repeat this step 3 if you update your current Windows Host Driver
 ### 4. Install custom dxgkrnl kernel:
 - From Ubuntu VM:
 ```bash
@@ -98,6 +103,7 @@ sudo grep -q -F "GRUB_SAVEDEFAULT=true" /etc/default/grub || echo "GRUB_SAVEDEFA
 sudo update-grub && cat /etc/default/grub
 ```
 ### 5. Reboot Ubuntu VM, select the new dxgkrnl kernel, enjoy !  
+<img width="770" alt="image" src="https://user-images.githubusercontent.com/46110534/202920514-c3fdbc87-0a0d-4923-b575-df14b0d0fe8a.png">
 
 ### 6. (OPTIONAL) Install nvidia-docker: 
 ```bash
@@ -107,7 +113,7 @@ curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - &&
 curl -s -L https://nvidia.github.io/nvidia-docker/ubuntu18.04/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list &&
 sudo apt-get update && sudo apt install -y nvidia-docker2
 ```
-- Perform a quick docker test see if gpu is working
+- Perform a quick Docker test see if GPU is working
 ```bash
 sudo docker run --rm --gpus all nvcr.io/nvidia/k8s/cuda-sample:nbody nbody -gpu -benchmark && 
 sudo docker run --rm -it -v /usr/lib/wsl/lib/nvidia-smi:/usr/local/bin/nvidia-smi --gpus all nvidia/cuda:11.8.0-base-ubuntu22.04 nvidia-smi
