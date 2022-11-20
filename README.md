@@ -50,51 +50,29 @@ Set-VM -HighMemoryMappedIoSpace 32GB -VMName $vm
 
 - From Ubuntu Hyper-V virtual machine: 
 ```bash
-sudo apt-get update && sudo apt-get install -y openssh-server
-mkdir -p $HOME/temp_folder/lib
-mkdir -p $HOME/temp_folder/drivers
-```
-```
-ip a | grep eth0
+sudo apt-get update && sudo apt-get install -y openssh-server # enable SSH
+ip a | grep eth0  # to get current VM ip
 ```
 - From Powershell of Windows Host:
+Open Device Manager, find out where is your current loaded driver, in my case it is 'nvhdcig.inf_amd64_26476eaed29e569c' folder
+<img width="464" alt="image" src="https://user-images.githubusercontent.com/46110534/202896318-7b097ee4-f7b2-4aae-a7ba-1d1ce5ab0563.png">
+
 ```powershell
 $vmip = "192.168.1.106" # get this from your previous result
 $vmusername = "abcdefg" # get this from your previous result
-scp -r C:\Windows\System32\lxss\lib $vmusername@$vmip:temp_folder
-scp -r C:\Windows\System32\DriverStore\FileRepository\nv_* $vmusername@$vmip:temp_folder/drivers
+$currentdriverfolder = "nvhdcig.inf_amd64_26476eaed29e569c"
+ssh -t ${vmusername}@${vmip} 'mkdir -p $HOME/temp_folder/lib && mkdir -p $HOME/temp_folder/drivers' # prepare temp folder
+scp -r C:\Windows\System32\lxss\lib "${vmusername}@${vmip}:temp_folder"
+scp -r C:\Windows\System32\DriverStore\FileRepository\$currentdriverfolder "${vmusername}@${vmip}:temp_folder/drivers"
+ssh -t ${vmusername}@${vmip} 'sudo rm -rf /usr/lib/wsl && sudo mkdir -p /usr/lib/wsl/lib && sudo cp -r $HOME/temp_folder/* /usr/lib/wsl && sudo chmod 555 /usr/lib/wsl/lib/* && sudo chown -R root:root /usr/lib/wsl && echo "/usr/lib/wsl/lib" | sudo tee /etc/ld.so.conf.d/ld.wsl.conf && sudo ldconfig && echo "export PATH=$PATH:/usr/lib/wsl/lib" | sudo tee /etc/profile.d/wsl.sh && sudo chmod +x /etc/profile.d/wsl.sh'
 ```
-- From Ubuntu Hyper-V virtual machine: 
-```bash
-sudo rm -rf /usr/lib/wsl
-sudo mv $HOME/temp_folder /usr/lib/wsl
-sudo chmod 555 /usr/lib/wsl/lib/*
-sudo chown -R root:root /usr/lib/wsl
-sudo bash -c 'echo "/usr/lib/wsl/lib" > /etc/ld.so.conf.d/ld.wsl.conf'
-sudo ldconfig
-sudo bash -c 'echo export PATH=$PATH:/usr/lib/wsl/lib > /etc/profile.d/wsl.sh'
-sudo chmod +x /etc/profile.d/wsl.sh
+- Install dxgkrn kernel:
+```powershell
+ssh -t ${vmusername}@${vmip} 'wget https://github.com/brokeDude2901/dxgkrnl_ubuntu/releases/download/main/linux-headers-5.10.102.1-dxgrknl_5.10.102.1-dxgrknl-10.00.Custom_amd64.deb && wget https://github.com/brokeDude2901/dxgkrnl_ubuntu/releases/download/main/linux-image-5.10.102.1-dxgrknl_5.10.102.1-dxgrknl-10.00.Custom_amd64.deb && sudo dpkg -i ./linux-headers-5.10.102.1-dxgrknl_5.10.102.1-dxgrknl-10.00.Custom_amd64.deb.deb && sudo dpkg -i ./linux-image-5.10.102.1-dxgrknl_5.10.102.1-dxgrknl-10.00.Custom_amd64.deb'
 ```
-### 3. Install the kernel:
-- Download and install the .deb package:
-```bash
-cd ~/
-wget https://github.com/brokeDude2901/dxgkrnl_ubuntu/releases/download/main/linux-headers-5.10.102.1-dxgrknl_5.10.102.1-dxgrknl-10.00.Custom_amd64.deb
-wget https://github.com/brokeDude2901/dxgkrnl_ubuntu/releases/download/main/linux-image-5.10.102.1-dxgrknl_5.10.102.1-dxgrknl-10.00.Custom_amd64.deb
-sudo dpkg -i *.deb
-```
-- To be able to select dxgkrnl in grub:
-```bash
-sudo nano /etc/default/grub
-```
-```text
-GRUB_TIMEOUT_STYLE=menu
-GRUB_TIMEOUT=5
-GRUB_DEFAULT=saved
-GRUB_SAVEDEFAULT=true
-```
-```bash
-sudo update-grub
+- Make GRUB show
+```powershell
+ssh -t ${vmusername}@${vmip} 'sudo sed -i "s/GRUB_DEFAULT=0/GRUB_DEFAULT=saved/g" /etc/default/grub && sudo sed -i "s/GRUB_TIMEOUT_STYLE=hidden/GRUB_TIMEOUT_STYLE=menu/g" /etc/default/grub && sudo sed -i "s/GRUB_TIMEOUT=0/GRUB_TIMEOUT=30/g" /etc/default/grub && sudo grep -q -F "GRUB_SAVEDEFAULT=true" /etc/default/grub || echo "GRUB_SAVEDEFAULT=true" | sudo tee -a /etc/default/grub && sudo update-grub && cat /etc/default/grub'
 ```
 
 ### 4. Reboot Ubuntu Hyper-V virtual machine:  
