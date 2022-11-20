@@ -53,12 +53,16 @@ Set-VM -HighMemoryMappedIoSpace 32GB -VMName $vm
 sudo apt-get update && sudo apt-get install -y openssh-server
 mkdir -p $HOME/temp_folder/lib
 mkdir -p $HOME/temp_folder/drivers
+```
+```
 ip a | grep eth0
 ```
 - From Powershell of Windows Host:
 ```powershell
-scp -r C:\Windows\System32\lxss\lib VM_USERNAME@VM_IP:temp_folder
-scp -r C:\Windows\System32\DriverStore\FileRepository\nv_* VM_USERNAME@VM_IP:temp_folder/drivers
+$vmip = "192.168.1.106" # get this from your previous result
+$vmusername = "abcdefg" # get this from your previous result
+scp -r C:\Windows\System32\lxss\lib $vmusername@$vmip:temp_folder
+scp -r C:\Windows\System32\DriverStore\FileRepository\nv_* $vmusername@$vmip:temp_folder/drivers
 ```
 - From Ubuntu Hyper-V virtual machine: 
 ```bash
