@@ -120,3 +120,10 @@ sudo docker run --rm -it -v /usr/lib/wsl/lib/nvidia-smi:/usr/local/bin/nvidia-sm
 ```
 <img width="1440" alt="image" src="https://user-images.githubusercontent.com/46110534/202920127-007fe4d9-e20b-4b49-b4cd-c2f95c81f89d.png">
 
+### 7. (OPTIONAL) Use Hyper-V Core scheduler to avoid bugs:
+- By default Windows 11 use Root scheduler, which sometimes buggy, cause extremely high CPU usage
+- From Windows Host, run Powershell as Administrator
+```powershell
+bcdedit /set hypervisorschedulertype Core
+```
+- Reboot to have effect, see article here: https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/manage/manage-hyper-v-scheduler-types
