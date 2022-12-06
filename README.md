@@ -5,12 +5,17 @@
 # dxgkrnl_ubuntu
 Use Ubuntu on Hyper-V VM with Microsoft GPU-P support (dxgrknl kernel).
 
+### Windows Host Requirement:
+- Windows 10 21H1 or later 
+- Windows 11 (all builds)
+- Windows Server 2022 Insider Preview Build 25246 (havent test older builds)
+
 ### Pros:
 - Full Hyper-V VM with more features than WSL2 (systemd, snap package, Hyper-V External Network, ...)
 - Can have one real GPU sharable among multiple Hyper-V VMs
 ### Cons:
 - WSLg stuff is not supported, use the new Ubuntu 22.04 Remote Sharing instead
-- Some tricks require to make nvidia Docker works properly
+- Any Docker CUDA image built this way will not work with bare metal machine (libcuda.so problems)
 - Only tested on Ubuntu 20.04 / 22.04
 
 # Instructions
@@ -45,6 +50,11 @@ Set-VMGpuPartitionAdapter -VMName $vm -OptimalPartitionCompute 10
 Set-VM -GuestControlledCacheTypes $true -VMName $vm
 Set-VM -LowMemoryMappedIoSpace 1Gb -VMName $vm
 Set-VM -HighMemoryMappedIoSpace 32GB -VMName $vm
+```
+- For Windows Server 2022 Insider Preview need to do this:
+```powershell
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\HyperV" -Name "RequireSecureDeviceAssignment" -Type DWORD -Value 0 -Force
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\HyperV" -Name "RequireSupportedDeviceAssignment" -Type DWORD -Value 0 -Force
 ```
 ### 3. Copy Windows Host GPU Driver to Ubuntu VM:
 - From Ubuntu VM:
