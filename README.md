@@ -139,7 +139,7 @@ sudo docker run --rm -it -v /usr/lib/wsl/lib/nvidia-smi:/usr/local/bin/nvidia-sm
 bcdedit /set hypervisorschedulertype Core
 ```
 - Reboot to have effect, see article here: https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/manage/manage-hyper-v-scheduler-types
-### 8. (EXPERIMENTAL) Use Moonlight / Sunshine Host for smooth remote desktop and gaming (tested on NVENC H264 and HEVC)
+### 8.1 (EXPERIMENTAL) Use Moonlight / Sunshine Host for smooth remote desktop and gaming (tested on NVENC H264 and HEVC)
 - Blacklist hyperv_fb bc it is too slow (see https://github.com/LIS/lis-next/issues/655)
 ```nano
 # /etc/default/grub
@@ -164,3 +164,9 @@ sudo mkdir -p /dev/dri && sudo mkdir -p /root/.config/sunshine & sudo sunshine
 GPU Encode & Decode Engine working :)
 ![image](https://user-images.githubusercontent.com/46110534/206408231-18c8e4bc-ffb2-4a80-808d-fe6e30d842bb.png)
 ![image](https://user-images.githubusercontent.com/46110534/206409166-6206cd6f-57fc-4f99-b958-4c735372b9b9.png)
+
+# 8.2 (EXPERIMENTAL) Run OpenGL Apps Fullscreen in Moonlight / Sunshine Host to prevent gnome-shell crash
+```bash
+xvfb-run -s "-screen 0 1024x768x24" bash -c 'sudo mkdir -p /dev/dri && sudo sunshine & glxgears'
+```
+![image](https://user-images.githubusercontent.com/46110534/206465355-29ac963f-36ca-48a2-965f-45be62913143.png)
