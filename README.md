@@ -13,7 +13,7 @@ Use Ubuntu on Hyper-V VM with Microsoft GPU-P support (dxgrknl kernel).
 ### Pros:
 - Full Hyper-V VM with more features than WSL2 (systemd, snap package, Hyper-V External Network, ...)
 - Can have one real GPU sharable among multiple Hyper-V VMs
-- Can use Moonlight / Sunshine Host to have 3D accelerated Remote Desktop 
+- Can use Moonlight / Sunshine Host to have Remote Desktop with hardware accelerated stream
 ### Cons:
 - Any Docker CUDA image built inside this VM, will not work with bare metal machine (libcuda.so problems, NVIDIA side)
 - Only tested on Ubuntu 20.04 / 22.04
