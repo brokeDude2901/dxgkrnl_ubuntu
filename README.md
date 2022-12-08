@@ -146,7 +146,7 @@ wget https://github.com/LizardByte/Sunshine/releases/download/v0.15.0/sunshine.d
 # fix libssl for ubuntu 22.04
 echo "deb http://security.ubuntu.com/ubuntu focal-security main" | sudo tee /etc/apt/sources.list.d/focal-security.list
 sudo apt-get update && sudo apt-get install libssl1.1
-# finally run this inside Hyper-V window (bc it has an active WAYLAND session) not on SSH
+# finally run this inside Hyper-V window (bc it has an active DISPLAY session) not on SSH
 sudo mkdir -p /dev/dri && sudo mkdir -p /root/.config/sunshine & sudo sunshine
 # open URL to config your Sunshine Host password, later accept the right PIN code from Moonlight client
 ```
