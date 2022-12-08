@@ -137,3 +137,16 @@ sudo docker run --rm -it -v /usr/lib/wsl/lib/nvidia-smi:/usr/local/bin/nvidia-sm
 bcdedit /set hypervisorschedulertype Core
 ```
 - Reboot to have effect, see article here: https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/manage/manage-hyper-v-scheduler-types
+### 8. (EXPERIMENTAL) Use Moonlight / Sunshine Host for smooth remote desktop and gaming (tested on NVENC H264 and HEVC)
+- Setup Sunshine Host on Ubuntu VM:
+```bash
+wget https://github.com/LizardByte/Sunshine/releases/download/v0.15.0/sunshine.deb && sudo apt-get install ./sunshine.deb
+# fix libssl for ubuntu 22.04
+echo "deb http://security.ubuntu.com/ubuntu focal-security main" | sudo tee /etc/apt/sources.list.d/focal-security.list
+sudo apt-get update && sudo apt-get install libssl1.1
+# finally run this inside Hyper-V window (bc it has an active WAYLAND session) not on SSH
+sudo mkdir -p /dev/dri && sudo mkdir -p /root/.config/sunshine & sudo sunshine
+# open URL to config your Sunshine Host password, later accept the right PIN code from Moonlight client
+```
+- Setup Moonlight on Windows Host from: https://moonlight-stream.org/, set the resolution to 1024x768 and Windowed Mode
+![image](https://user-images.githubusercontent.com/46110534/206408231-18c8e4bc-ffb2-4a80-808d-fe6e30d842bb.png)
