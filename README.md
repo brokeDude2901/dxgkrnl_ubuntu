@@ -150,9 +150,12 @@ sudo apt-get update && sudo apt-get install libssl1.1
 sudo mkdir -p /dev/dri && sudo mkdir -p /root/.config/sunshine & sudo sunshine
 # open URL to config your Sunshine Host password, later accept the right PIN code from Moonlight client
 ```
-- Setup Moonlight on Windows Host from: https://moonlight-stream.org/, set the resolution to 1024x768 and Windowed Mode
+- Change resolution by run this command in Powershell (any res will work)
+```powershell
+set-vmvideo "ubuntu" -horizontalresolution:1920 -verticalresolution:1080 -resolutiontype single
+```
+- Setup Moonlight on Windows Host from: https://moonlight-stream.org/, set the resolution to 1920x1080 and Windowed Mode
 
 GPU Encode & Decode Engine working :)
 ![image](https://user-images.githubusercontent.com/46110534/206408231-18c8e4bc-ffb2-4a80-808d-fe6e30d842bb.png)
 ![image](https://user-images.githubusercontent.com/46110534/206409166-6206cd6f-57fc-4f99-b958-4c735372b9b9.png)
-
