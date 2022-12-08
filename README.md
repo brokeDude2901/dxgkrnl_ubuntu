@@ -13,10 +13,12 @@ Use Ubuntu on Hyper-V VM with Microsoft GPU-P support (dxgrknl kernel).
 ### Pros:
 - Full Hyper-V VM with more features than WSL2 (systemd, snap package, Hyper-V External Network, ...)
 - Can have one real GPU sharable among multiple Hyper-V VMs
+- Can use Moonlight / Sunshine Host to have 3D accelerated Remote Desktop 
 ### Cons:
-- WSLg stuff is not supported, use the new Ubuntu 22.04 Remote Sharing instead
-- Any Docker CUDA image built this way will not work with bare metal machine (libcuda.so problems)
+- Any Docker CUDA image built inside this VM, will not work with bare metal machine (libcuda.so problems, NVIDIA side)
 - Only tested on Ubuntu 20.04 / 22.04
+- Current kernel 5.10 need to be updated to the WSL2 5.15 Kernel :(
+- Should work with AMD too, but I don't have AMD cards to test
 
 # Instructions
 ### 1. Create a Gen 2 Hyper-V virtual machine, install Ubuntu 20.04 LTS / 22.04 LTS as normal 
