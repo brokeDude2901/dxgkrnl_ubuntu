@@ -102,7 +102,7 @@ sudo chmod +x /etc/profile.d/wsl.sh
 # Download and install dxgrknl kernel
 wget https://github.com/brokeDude2901/dxgkrnl_ubuntu/releases/download/main/linux-headers-5.10.102.1-dxgrknl_5.10.102.1-dxgrknl-10.00.Custom_amd64.deb && 
 wget https://github.com/brokeDude2901/dxgkrnl_ubuntu/releases/download/main/linux-image-5.10.102.1-dxgrknl_5.10.102.1-dxgrknl-10.00.Custom_amd64.deb && 
-sudo dpkg -i ./linux-headers-5.10.102.1-dxgrknl_5.10.102.1-dxgrknl-10.00.Custom_amd64.deb.deb && 
+sudo dpkg -i ./linux-headers-5.10.102.1-dxgrknl_5.10.102.1-dxgrknl-10.00.Custom_amd64.deb && 
 sudo dpkg -i ./linux-image-5.10.102.1-dxgrknl_5.10.102.1-dxgrknl-10.00.Custom_amd64.deb
 
 # Make GRUB show menu for you to choose the installed dxgkrnl
