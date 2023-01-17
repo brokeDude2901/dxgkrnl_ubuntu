@@ -8,17 +8,20 @@ Use Ubuntu on Hyper-V VM with Microsoft GPU-P support (dxgrknl kernel).
 ### Windows Host Requirement:
 - Windows 10 21H1 or later 
 - Windows 11 (all builds)
-- Windows Server 2022 Insider Preview Build 25246 (havent test older builds)
+- Windows Server 2022 Insider Preview Build 25246 or later
 
 ### Pros:
-- Full Hyper-V VM with more features than WSL2 (systemd, snap package, Hyper-V External Network, ...)
-- Can have one real GPU sharable among multiple Hyper-V VMs
-- Can use Moonlight / Sunshine Host to have Remote Desktop with hardware accelerated stream
+- Full Hyper-V VM with more features than WSL2 (systemd, snapd, Hyper-V External Network, ...)
+- Poor man vGPU solution: one GPU is sharable among multiple Hyper-V VMs
+- GPU Encoding/Decoding works: Can use Sunshine Host with hardware accelerated stream
 ### Cons:
-- Any Docker CUDA image built inside this VM, will not work with bare metal machine (libcuda.so problems, NVIDIA side)
+- Beware that any Docker CUDA image built inside this VM, will not work with bare metal machine (libcuda.so problems)
 - Only tested on Ubuntu 20.04 / 22.04
-- Current kernel 5.10 need to be updated to the WSL2 5.15 Kernel :(
+- Outdated kernel 5.10, need to be updated to the WSL2 5.15 Kernel :(
+- Sunshine is experimental, and GNOME can break easily
+- Hyper-V is a Type 1 Hypervisor, expect heavy CPU performance loss on your Windows Host
 - Should work with AMD too, but I don't have AMD cards to test
+- No way to allocated a fixed amount of VRAM to each Hyper-V VM like real vGPU solution
 
 # Instructions
 ### 1. Create a Gen 2 Hyper-V virtual machine, install Ubuntu 20.04 LTS / 22.04 LTS as normal 
